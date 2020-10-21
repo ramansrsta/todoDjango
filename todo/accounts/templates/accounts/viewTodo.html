@@ -1,0 +1,17 @@
+{% extends 'accounts/base.html' %}
+
+{% load cache %}
+{% cache 500 content %}
+{% block content %}
+  {% for data in todo %}
+  todo: {{data.todo}}
+
+  <a href="{% url 'accounts:update' data.id %}">Update Todo </a>\
+  <form action="{% url 'accounts:delete' data.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('Do You want to delete ?')">Delete</button>
+  </form>
+  {%endfor %}
+{% endblock %}
+{% endcache %}
+
